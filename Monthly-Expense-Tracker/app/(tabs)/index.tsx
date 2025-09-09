@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Button, Dimensions } from 'react-native';
+import { SafeAreaView, View, Button, Dimensions ,Text } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import AddExpensePage from '@/components/AddExpensePage';
 import ExpenseComponent,{ ExpenseType, ChartDataType } from '@/components/Expense';
+import style from '@/components/style';
 
 export default function App() {
   const [name, setName] = useState('');
@@ -12,7 +13,11 @@ export default function App() {
   const [chartData, setChartData] = useState<ChartDataType[]>([]);
   const [addForm, setAddForm] = useState(false);
 
-  const screenWidth = Dimensions.get('window').width;
+
+  const addExpense = () => {
+		setAddForm(true);
+	};
+
 
   const chartColors: Record<string, string> = {
     Food: '#e74c3c',
@@ -23,7 +28,33 @@ export default function App() {
   
   return (
     <SafeAreaView style={{ flex: 1, padding: 16 }}>
-      {addForm ? (
+      <Text style= {style.heading2}>
+				Expense Tracker using React-Native
+			</Text>
+        
+         <PieChart
+				data={  chartData.map(item => ({
+          name: item.label,
+          amount: item.value,
+          color: chartColors[item.label] || '#000000',
+          legendFontColor: '#7F7F7F',
+          legendFontSize: 15,
+        }))}
+				width={300}
+				height={200}
+				chartConfig={{
+					backgroundGradientFrom: "#1E2923",
+					backgroundGradientTo: "#08130D",
+					color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+				}}
+				accessor="amount"
+				backgroundColor="transparent"
+				paddingLeft="15"
+				absolute
+			/>
+          
+
+      {addForm === true ? (
         <AddExpensePage
           name={name}
           setName={setName}
@@ -38,35 +69,21 @@ export default function App() {
           setAddForm={setAddForm}
         />
       ) : (
-        <View>
-          <Button title="Add Expense" onPress={() => setAddForm(true)} />
+        <View style={{ flex: 1, alignItems: 'center',rowGap:10 }}>
+          <Button title="Add Expense" onPress={addExpense}  color="green"
+          />
+        </View>
+      )}
 
-          <ExpenseComponent
+  <ExpenseComponent
             expenses={expenses}
             setExpenses={setExpenses}
             chartData={chartData}
             setChartData={setChartData}
+        
           />
 
-          {chartData.length > 0 && (
-            <PieChart
-              data={chartData.map((item) => ({
-                name: item.label,
-                amount: item.value,
-                color: chartColors[item.label] || '#7f8c8d',
-                legendFontColor: '#7F7F7F',
-                legendFontSize: 15,
-              }))}
-              width={screenWidth}
-              height={220}
-              accessor="amount"
-              backgroundColor="transparent"
-              paddingLeft="15"
-              absolute
-            />
-          )}
-        </View>
-      )}
     </SafeAreaView>
   );
 }
+

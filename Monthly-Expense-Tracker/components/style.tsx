@@ -16,12 +16,11 @@ Button: {
 	},
 
 TextInput: {
-        borderWidth: 1,
-        borderColor: "#ccc",
-       padding: 10,
+	borderRadius: 5,
+		borderColor: "black",
+		borderWidth: 1,
+		padding: 10,
 		margin: 10,
-        borderRadius: 5,
-        height: '100%'
     },
     heading: {
 		color: "green",

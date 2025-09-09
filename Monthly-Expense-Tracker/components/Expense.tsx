@@ -1,6 +1,5 @@
 import { View, Text, ScrollView } from "react-native";
 import React from 'react';
-import style from "./style";
 
 // Define the type for an expense
 export type ExpenseType = {
@@ -32,19 +31,20 @@ const ExpenseComponent: React.FC<ExpenseComponentProps> = ({
   setChartData,
 }) => {
   return (
-    <ScrollView>
-      {expenses.length === 0 ? (
-        <Text>No expenses recorded yet.</Text>
-      ) : (
-        expenses.map((expense) => (
-          <View key={expense.id}>
-            <Text>
-              {expense?.name ?? 'No name'}: R{expense?.amount ?? 0} - {expense.category}
-            </Text>
-          </View>
-        ))
-      )}
-    </ScrollView>
+<ScrollView>
+  {expenses.length === 0 ? (
+    <Text>No expenses recorded yet.</Text>
+  ) : (
+    expenses.map((expense) => (
+alert(expense.id),
+      <View key={expense.id} style={{ marginBottom: 10, padding: 10, borderWidth: 1, borderColor: '#ccc', borderRadius: 5 }}>
+        <Text>
+          {expense.name }: R{expense.amount} - {expense.category}
+        </Text>
+      </View>
+    ))
+  )}
+</ScrollView>
   );
 };
 

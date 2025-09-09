@@ -1,9 +1,9 @@
 /* eslint-disable import/no-unresolved */
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import style from './style';
-import { ExpenseType, ChartDataType } from './Expense'; // Assuming types are correctly defined
+import { ExpenseType, ChartDataType } from './Expense'; 
 
 type AddExpensePageProps = {
   name: string;
@@ -81,14 +81,15 @@ const categories = ['others','Food', 'Transport', 'Entertainment'];
 
   return (
     <View style={style.view}>
-      <Text style={style.heading3}>Expense Page</Text>
+      <Text style={style.heading3}>Add Expense Page</Text>
 
-      <Text style={style.label}>Expense Name:</Text>
+      <Text style={style.label}>Expense Name</Text>
       <TextInput
         style={style.TextInput}
         value={name}
         onChangeText={setName}
         placeholder="Enter expense name"
+       
       />
 
       <Text style={style.label}>Amount:</Text>
@@ -111,21 +112,13 @@ const categories = ['others','Food', 'Transport', 'Entertainment'];
           <Picker.Item key={index} label={cat} value={cat} />
         ))}
 
-        <Picker.Item label="Select a category" value=""  />
-        {categories.map((cat, index) => (
-    <Picker.Item key={index} label={cat} value={cat} />
-  ))}
+
       </Picker>
 
       <View style={style.Button}>
         <Button title="Add Expense" onPress={handleAddExpense} />
       </View>
-      <View>Expenses</View>
-
-      <View style={style.Button}>
-        <Button title="Back" onPress={() => setAddForm(false)} />
-      </View>
-
+    
         
     </View>
   );
